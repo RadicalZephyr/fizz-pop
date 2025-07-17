@@ -2,9 +2,16 @@ process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 module.exports = function(config) {
     var junitOutputDir = process.env.CIRCLE_TEST_REPORTS || "target/junit"
+    var browser = process.env.KARMA_BROWSER || 'ChromeHeadless';
 
     config.set({
-        browsers: ['ChromeHeadless'],
+        browsers: [browser],
+        customLaunchers: {
+            ChromeHeadlessNoSandbox: {
+                base: 'ChromeHeadless',
+                flags: ['--no-sandbox']
+            }
+        },
         basePath: 'target',
         files: ['karma-test.js'],
         frameworks: ['cljs-test'],
