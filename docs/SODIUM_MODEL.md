@@ -35,34 +35,36 @@ The setup phase can also attach listeners/call back functions to any
 
  - `CellConstant`: A Cell with an unchanging value
  - `CellMap`: Applies a function to a Cell's value
- - `CellLift`: Combines multiple Cells through a function
- - `CellSwitch`: Dynamically switches between Cell sources
+ - `CellLift`: Combines two or more Cells through applying a function to their values
+ - `CellSwitch`: Dynamically switches between Cell sources, transforms a `Cell<Cell<T>>` into a `Cell<T>`
 
 
 ### Stream Operations:
 
  - `StreamNever`: A Stream that never fires
- - `StreamMap`: Transforms Stream event values
- - `Stream Filter`: Conditionally allows events to propagate
+ - `StreamMap`: Transforms Stream event values with a function
+ - `Stream Filter`: Conditionally allows events to propagate based on a boolean function on the event data
  - `StreamMerge`: Combines events from multiple Streams
- - `StreamSnapshot`: Captures Cell values when a Stream fires
+ - `StreamSnapshot`: Samples one or more Cell values when a Stream fires and combines them all with a function
  - `StreamHold`: Converts a Stream to a Cell containing the most recent event value
- - `StreamSwitch`: Dynamically switches between Stream sources
+ - `StreamSwitch`: Dynamically switches between Stream sources, transforms a `Cell<Stream<T>>` into a `Stream<T>`
 
 
 ### Compound Operations:
 
- - `StreamAccumulate`: Accumulates values over a series of events
- - `StreamCollect`: Collects event values
- - `StreamGate`: Controls event flow based on a condition
- - `StreamOnce`: Allows a Stream to fire only once
+ - `StreamAccumulate`: As each event is received, the accumulating function f is called with the current state and the new event value
+ - `StreamCollect`: Transform an event with a generalized state loop (a Mealy machine). The function is passed the input and the old state and returns the new state and output value
+ - `StreamGate`: Controls event flow based on a condition `Cell<bool>`
+ - `StreamOnce`: A Stream that will fire only one time
 
 
 ### I/O Operations:
 
  - `CellSink`: Input interface for updating Cell values
- - `StreamSink`: Input interface for firing events
- - `StreamListener`: Output interface for causing side effects when events occur
+ - `CellSample`: Output interface for reading the current value of a Cell
+ - `CellUpdates`: Output interface for running side effects when a Cell value is updated
+ - `StreamSink`: Input interface for firing events with optional data
+ - `StreamListener`: Output interface for running side effects when events occur
 
 
 
@@ -81,7 +83,7 @@ Based on this understanding, our graph editor needs to visually represent:
 ## Node Types:
 
  - Input nodes (`CellSink`, `StreamSink`)
- - Output nodes (`StreamListener`)
+ - Output nodes (`StreamListener`, `CellListener`)
  - Cell-based nodes (`CellConstant`, `CellMap`, `CellLift`, `CellSwitch`)
  - Stream-based nodes (`StreamNever`, `StreamMap`, `StreamFilter`, `StreamMerge`, `StreamSnapshot`, `StreamHold`, `StreamSwitch`)
  - Compound operation nodes (`StreamAccumulate`, `StreamCollect`, `StreamGate`, `StreamOnce`)
@@ -95,11 +97,24 @@ Based on this understanding, our graph editor needs to visually represent:
 
 ## Special Features:
 
+ - Name and description fields for all nodes
+ - Type information for input and output Cells and Streams
+ - Required input and output Cells and Streams
+ - Comment nodes for descriptive text
  - Cycle detection and visualization
- - Transaction boundaries representation
- - Function references and parameter configuration for each node
+ - Function references, parameter configuration and type information for each node
  - Visual distinction between primitive operations and compound operations
+ - User-created abstractions "Compound Nodes" (which will use the same mechanism as built-in compound operations)
+ - System boundary containers that visually group nodes and show dependencies crossing their boundaries
 
+### User Created Abstractions / Reusable Systems
+
+A compound node consists of a subgraph which can be edited
+separately. It will have a set of input and output Cells and Streams
+(can be multiple Cells and Streams as both inputs and outputs). This
+abstraction can then be reused multiple times else where in the
+program as a single node and when the abstraction subgraph is updated
+all the places it is used will be updated as well.
 
 ## Code Generation:
 
