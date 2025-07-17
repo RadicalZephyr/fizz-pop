@@ -3,6 +3,7 @@
 A [re-frame](https://github.com/day8/re-frame) application designed to
 empower everyone to paint with magic ink!
 
+[![Run tests](https://github.com/RadicalZephyr/fizz-pop/actions/workflows/test.yaml/badge.svg)](https://github.com/RadicalZephyr/fizz-pop/actions/workflows/test.yaml)
 
 ## Getting Started
 
