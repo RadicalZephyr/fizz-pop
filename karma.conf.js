@@ -1,3 +1,5 @@
+process.env.CHROME_BIN = require('puppeteer').executablePath()
+
 module.exports = function(config) {
     var junitOutputDir = process.env.CIRCLE_TEST_REPORTS || "target/junit"
 
