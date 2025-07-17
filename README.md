@@ -27,6 +27,12 @@ smile.
 
 [MagicInk]: https://worrydream.com/MagicInk/#information_and_the_world_of_tomorrow
 
+
+<img
+src="https://raw.githubusercontent.com/RadicalZephyr/fizz-pop/1da6c2661d5bb3e70d9706614fa4293434a559a8/assets/Mocha-and-Echos-Magical-Doodles.png" alt="Mocha the dark brow highland cow and Echo the rainbow-finned axolotl are sitting in a garden, making magical doodles together from a giant jar of Magic Ink." title="Mocha & Echo's Magical Doodles" align="right" />
+
+---
+
 ## Why is it called FizzPop?
 
 I wanted to turn the idea of the [FizzBuzz coding test][FizzBuzz] on it's
