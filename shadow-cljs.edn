@@ -1,6 +1,6 @@
 {:nrepl {:port 8777}
 
- 
+ :jvm-opts ["-Dhttp.proxyHost=proxy" "-Dhttp.proxyPort=8080"]
 
  :source-paths ["src" "test"]
 
