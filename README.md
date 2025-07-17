@@ -1,4 +1,6 @@
-# FizzPop - Empowering everyone to paint with magic ink!
+# FizzPop
+
+## *Empowering everyone to paint with magic ink!*
 
 FizzPop is a whimsical visual editor that lets anyone bring ideas to
 life through doodles and interactivity -- no coding required!
