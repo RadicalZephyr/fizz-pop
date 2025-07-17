@@ -8,9 +8,9 @@ empower everyone to paint with magic ink!
 
 ### Project Overview
 
-* Architecture:
-[Single Page Application (SPA)](https://en.wikipedia.org/wiki/Single-page_application)
+* Architecture: [Single Page Application (SPA)](https://en.wikipedia.org/wiki/Single-page_application) with a Tauri backend for packaging the app as a desktop application
 * Languages
+  - Desktop application backend is [Rust](https://rust-lang.org) with [Tauri](https://tauri.app)
   - Front end is [ClojureScript](https://clojurescript.org/) with ([re-frame](https://github.com/day8/re-frame))
   - CSS compilation is [Garden](https://github.com/noprompt/garden) with [Spade](https://github.com/dhleong/spade)
 * Dependencies
@@ -62,6 +62,8 @@ empower everyone to paint with magic ink!
 * [`test/fizz_pop/`](test/fizz_pop/): test files (ClojureScript,
 [cljs.test](https://clojurescript.org/tools/testing))
   - Only namespaces ending in `-test` (files `*_test.cljs`) are compiled and sent to the test runner
+* [`src-tauri/`](src-tauri/): Tauri desktop application backend
+  configuration and code
 * [`.github/workflows/`](.github/workflows/): contains the
 [github actions](https://github.com/features/actions) pipelines.
   - [`test.yaml`](.github/workflows/test.yaml): Pipeline for testing.
@@ -127,7 +129,7 @@ the enhancement request in their bug tracker:
 
 ## Development
 
-### Running the App
+### Running the App in the browser
 
 Start a temporary local web server, build the app with the `dev` profile, and serve the app,
 browser test runner and karma test runner with hot reload:
@@ -182,6 +184,28 @@ For example, in Vim / Neovim with `fireplace.vim`
     The REPL prompt changes to `cljs.user=>`, indicating that this is now a ClojureScript REPL.
 3. See [`user.cljs`](dev/cljs/user.cljs) for symbols that are immediately accessible in the REPL
 without needing to `require`.
+
+### Running the app in Desktop Application Mode
+
+Start a temporary local web server, build the app with the `dev` profile, and serve the app,
+browser test runner and karma test runner with hot reload:
+
+```sh
+npm install
+npx tauri dev
+```
+
+Please be patient; it may take over 20 seconds to see any output, and over 40 seconds to complete.
+
+Once the build has completed the desktop application will open.
+
+[`shadow-cljs`](https://github.com/thheller/shadow-cljs) will automatically push ClojureScript code
+changes to your browser on save. To prevent a few common issues, see
+[Hot Reload in ClojureScript: Things to avoid](https://code.thheller.com/blog/shadow-cljs/2019/08/25/hot-reload-in-clojurescript.html#things-to-avoid).
+
+Opening the app in your browser starts a
+[ClojureScript browser REPL](https://clojurescript.org/reference/repl#using-the-browser-as-an-evaluation-environment),
+to which you may now connect.
 
 ### Running Tests
 
